@@ -1,0 +1,86 @@
+# v1 data sources (committed) for the European Brokerage Market Intelligence Agent.
+# Each feed was live-tested on 2026-08-07 (see data/sample_run_2026-08-07.json for
+# real output). Fintech Futures was evaluated and dropped from v1 -- see notes below.
+
+feeds:
+  - id: finextra_headlines
+    name: "Finextra Research - Headlines"
+    url: "https://www.finextra.com/rss/headlines.aspx"
+    type: rss
+    category: fintech_news
+    verified_2026-08-07: true
+
+  - id: payment_and_banking
+    name: "Payment & Banking"
+    url: "https://paymentandbanking.com/payment/rss/"
+    type: rss
+    category: fintech_news
+    verified_2026-08-07: true
+
+  - id: bafin_all_news
+    name: "BaFin - All news"
+    url: "https://www.bafin.de/EN/service/rss/_function/rssnewsfeed.xml"
+    type: rss
+    category: regulator
+    verified_2026-08-07: true
+
+  - id: esma_news
+    name: "ESMA - News"
+    url: "https://www.esma.europa.eu/rss.xml"
+    type: rss
+    category: regulator
+    verified_2026-08-07: true
+
+# Evaluated, not included in v1:
+#   Fintech Futures (fintechfutures.com/feed) - returns HTTP 403 (Cloudflare bot
+#   challenge) from a plain fetch; needs a headless-browser or approved-proxy
+#   workaround. Logged as a stretch item, not blocking v1 -- the doc's own
+#   "2-3 fintech feeds" commitment is already met by Finextra + Payment & Banking.
+
+# Keyword filter applied to all feed items before they become graph Events.
+# Matches are case-insensitive substring matches against title + summary.
+#
+# NOTE (found 2026-08-07 during Week 1 live testing): "BaFin" and "ESMA" used
+# to be in this list. Since those are also the SOURCE names, every BaFin item
+# trivially matched on its own name -- 19 of 20 BaFin items in the first live
+# run were generic consumer-scam warnings, not brokerage-relevant news. Pulled
+# both out; regulator feeds now only pass through on actual content terms
+# (MiFID, securities, investment services, etc.), same bar as everything else.
+keywords:
+  - broker
+  - brokerage
+  - custody
+  - custodian
+  - wealth management
+  - wealthtech
+  - robo-advisor
+  - neobroker
+  - trading app
+  - investment infrastructure
+  - investment services
+  - retail investing
+  - MiFID
+  - MiFIR
+  - securities
+  - depotbank
+  - trade republic
+  - scalable capital
+  - upvest
+  - dwpbank
+  - lemon.markets
+  - consolidated tape
+  - settlement
+  - T+1
+
+# Companies tracked for the competitor graph (Company nodes).
+tracked_companies:
+  - Trade Republic
+  - Scalable Capital
+  - Upvest
+  - dwpbank
+  - lemon.markets
+
+# Regulators tracked (Regulator nodes).
+tracked_regulators:
+  - BaFin
+  - ESMA

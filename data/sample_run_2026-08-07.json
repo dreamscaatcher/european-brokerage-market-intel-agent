@@ -1,0 +1,268 @@
+[
+  {
+    "event_id": "51a6716beb8eef6a",
+    "source_id": "finextra_headlines",
+    "source_name": "Finextra Research - Headlines",
+    "category": "fintech_news",
+    "title": "What profitable roles can banks play in the digital currency race?",
+    "link": "https://www.finextra.com/event-info/621/what-profitable-roles-can-banks-play-in-the-digital-currency-race?utm_medium=rssfinextra&utm_source=finextrafeed",
+    "published": "Thu, 10 Sep 2026 15:00:00 GMT",
+    "summary": "Exploring banks' key considerations around the impact of digital money on infrastructure, settlement and control.",
+    "matched_keywords": [
+      "settlement"
+    ],
+    "fetched_at": "2026-08-07T14:12:54.723503+00:00"
+  },
+  {
+    "event_id": "e3fdb4c78e581f70",
+    "source_id": "payment_and_banking",
+    "source_name": "Payment & Banking",
+    "category": "fintech_news",
+    "title": "PFOF-Verbot: Ziel erreicht \u2013 alles wie vorher",
+    "link": "https://paymentandbanking.com/pfof-verbot-ziel-erreicht-alles-wie-vorher/",
+    "published": "Tue, 07 Jul 2026 05:41:22 GMT",
+    "summary": "Seit dem 1. Juli d\u00fcrfen Neobroker kein Geld f\u00fcr die Weiterleitung von Handelsauftr\u00e4ge verlangen. Doch die haben inzwischen die Not zur Tugend gemacht.",
+    "matched_keywords": [
+      "broker",
+      "neobroker"
+    ],
+    "fetched_at": "2026-08-07T14:12:54.994012+00:00"
+  },
+  {
+    "event_id": "f637db4f7482e7e2",
+    "source_id": "payment_and_banking",
+    "source_name": "Payment & Banking",
+    "category": "fintech_news",
+    "title": "SpaceX-IPO: Ist Trade Republic nur ein Teil der Marketing-Maschinerie?",
+    "link": "https://paymentandbanking.com/spacex-ipo-ist-trade-republic-nur-ein-teil-der-marketing-maschinerie/",
+    "published": "Thu, 11 Jun 2026 09:38:31 GMT",
+    "summary": "Trade Republic und Co. setzen auf den SpaceX-Hype und sprechen damit auch unerfahrene Anleger an. Ob das eine kluge Strategie ist, l\u00e4sst sich bezweifeln.",
+    "matched_keywords": [
+      "trade republic"
+    ],
+    "fetched_at": "2026-08-07T14:12:54.994064+00:00"
+  },
+  {
+    "event_id": "1819f3bab39bc3c7",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "Klingenstein Group: Bafin warns consumers about the websites klingensteingroups(.)com and klingensteingroups(.)pro and about identity fraud",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Verbrauchermitteilung/unerlaubte/2026/meldung_2026_08_05_klingenstein_group_en.html",
+    "published": "Fri, 7 Aug 2026 13:59:00 +0200",
+    "summary": "The Federal Financial Supervisory Authority\u00a0(Bafin)\u00a0warns consumers about the services offered on the website klingensteingroups(.)com and the login area at klingensteingroups(.)pro. According to information available to Bafin, the operators are providing financial and investment services on the websites without the required authorisation.",
+    "matched_keywords": [
+      "investment services"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250032+00:00"
+  },
+  {
+    "event_id": "e3c54a3a113deb57",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "Onlinesparen(.)expert / onlinesparenglobal(.)com / ai-wallet(.)org: Bafin warns about websites and identity theft",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Verbrauchermitteilung/unerlaubte/2026/meldung_2026_08_07_onlinesparen_onlinesparenglobal_en.html",
+    "published": "Fri, 7 Aug 2026 08:43:00 +0200",
+    "summary": "The Federal Financial Supervisory Authority (Bafin) warns about offers on the websites onlinesparen(.)expert, onlinesparenglobal(.)com and ai-wallet(.)org as well as about products named TradiasWallet. It is suspected, that the unknown operators are offering banking services, in particular fixed-term deposits, as well as financial or investment services and crypto-asset services without the required authorisation. The services do not originate from Tradias GmbH. This is a case of identity theft.",
+    "matched_keywords": [
+      "investment services"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250058+00:00"
+  },
+  {
+    "event_id": "2f22a01bd0cb5959",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "Kingston Horizon Partners: Bafin warns consumers about the websites kingstonhorizonpartners(.)com and kingstonhorizonpartners(.)pro and about identity fraud",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Verbrauchermitteilung/unerlaubte/2026/meldung_2026_07_31_kingstonhorizonpartners_en.html",
+    "published": "Mon, 3 Aug 2026 14:23:00 +0200",
+    "summary": "The Federal Financial Supervisory Authority (Bafin) warns consumers about the services offered on the websites kingstonhorizonpartners(.)com and the login area at kingstonhorizonpartners(.)pro. According to information available to Bafin, the operators are providing financial and investment services on the websites without the required authorisation.",
+    "matched_keywords": [
+      "investment services"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250123+00:00"
+  },
+  {
+    "event_id": "db71d2ea09888c73",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "iponexus(.)net: Bafin warns consumers about website",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Verbrauchermitteilung/unerlaubte/2026/meldung_2026_07_31_iponexus_net_en.html",
+    "published": "Fri, 31 Jul 2026 13:52:00 +0200",
+    "summary": "The Federal\u00a0Financial\u00a0Supervisory Authority\u00a0(Bafin)\u00a0warns consumers\u00a0about\u00a0the services offered on the website iponexus(.)net. According to information available to\u00a0Bafin, this website is being used to offer financial and investment services without the required authorisation. Investors are being asked to transfer funds to third-party accounts for stock shares they have allegedly purchased.",
+    "matched_keywords": [
+      "investment services"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250159+00:00"
+  },
+  {
+    "event_id": "d1f46815667d2f09",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "hub-wiser(.)com: Bafin warns consumers about website",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Verbrauchermitteilung/unerlaubte/2026/meldung_2026_07_30_hub_wiser_com_en.html",
+    "published": "Thu, 30 Jul 2026 07:36:00 +0200",
+    "summary": "The Federal Financial Supervisory Authority (Bafin) warns consumers about the services offered on the website hub-wiser(.)com. According to information available to Bafin, this website is being used to offer banking business, financial and investment services without the required authorisation.",
+    "matched_keywords": [
+      "investment services"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250192+00:00"
+  },
+  {
+    "event_id": "4d657fe05a953cbf",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "Leo International Precision Health AG: Bafin imposes administrative fines",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Massnahmen/40c_neu_124_WpHG/meldung_2026_07_30_leo_international_precision_health_ag_en.html?cms_expanded=true",
+    "published": "Thu, 30 Jul 2026 06:00:00 +0200",
+    "summary": "On 8 July 2026, Bafin imposed an administrative fine amounting to \u20ac20,000 on Leo International Precision Health AG. The company had contravened obligations under the German Securities Trading Act (WpHG). Leo International Precision Health AG had failed to publish an announcement stating from which date and at which web address its annual financial information for the financial year 2023 was made publicly available. It had also failed to publish its half-yearly financial report for the financial year 2024 within the prescribed period.",
+    "matched_keywords": [
+      "securities"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250210+00:00"
+  },
+  {
+    "event_id": "14d1a8655b686307",
+    "source_id": "bafin_all_news",
+    "source_name": "BaFin - All news",
+    "category": "regulator",
+    "title": "ubstrade-fx(.)com: Bafin\u00a0warns consumers about the website ubstrade-fx(.)com and investigates the unknown operators of the website",
+    "link": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Verbrauchermitteilung/unerlaubte/2026/meldung_2026_07_28_ubstrade-fx_en.html",
+    "published": "Wed, 29 Jul 2026 12:37:00 +0200",
+    "summary": "The Federal Financial Supervisory Authority\u00a0(Bafin)\u00a0warns consumers about the services offered on the website\u00a0ubstrade-fx(.)com. According to information available to Bafin, the operators are offering financial and investment services on the website without the required authorisation.",
+    "matched_keywords": [
+      "investment services"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.250223+00:00"
+  },
+  {
+    "event_id": "5db3bae34dbe6335",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "ESMA publishes latest edition of its newsletter",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-latest-edition-its-newsletter-44",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">ESMA publishes latest edition of its newsletter</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-31T09:56:51+02:00\" title=\"Friday, July 31, 2026 - 09:56\">31 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">ESMA newsletter</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p class=\"text-align-justify\">The European Securities and Markets Authority (ESMA), the EU\u2019s financial markets regulator and supervisor, has published today the <a href=\"https://www.esma.europa.eu/sites/default/files/2026-07/Newsletter_June_and_July_2026.pdf\">latest edition</a> of its Spotlight on Markets newsle",
+    "matched_keywords": [
+      "investment services",
+      "securities",
+      "consolidated tape",
+      "settlement",
+      "T+1"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479088+00:00"
+  },
+  {
+    "event_id": "47618a4e01b09372",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "ESMA authorises EuroCTP as the Consolidated Tape Provider for shares and exchange-traded funds",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/esma-authorises-euroctp-consolidated-tape-provider-shares-and-exchange-traded",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">ESMA authorises EuroCTP as the Consolidated Tape Provider for shares and exchange-traded funds</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-27T13:49:18+02:00\" title=\"Monday, July 27, 2026 - 13:49\">27 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Market data</div>\n              <div class=\"field__item\">Press Releases</div>\n              <div class=\"field__item\">Trading</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p class=\"text-align-justify\">The European Securities and Markets Authority (ESMA), the EU\u2019s financial markets regulator and supervisor, has authorised EuroC",
+    "matched_keywords": [
+      "MiFIR",
+      "securities",
+      "consolidated tape"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479169+00:00"
+  },
+  {
+    "event_id": "61fe9821a7ca92a7",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "ESMA calls on firms to finalise preparations ahead of T+1 settlement deadlines",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/esma-calls-firms-finalise-preparations-ahead-t1-settlement-deadlines",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">ESMA calls on firms to finalise preparations ahead of T+1 settlement deadlines</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-20T14:00:40+02:00\" title=\"Monday, July 20, 2026 - 14:00\">20 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Post Trading</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p>The European Securities and Markets Authority (ESMA), the EU regulator and supervisor, has published a <a href=\"https://www.esma.europa.eu/sites/default/files/2026-07/ESMA74-2119945926-3773_T_1_statement.pdf\">statement</a> highlighting key deadlines and action points to be ready fo",
+    "matched_keywords": [
+      "securities",
+      "settlement",
+      "T+1"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479213+00:00"
+  },
+  {
+    "event_id": "0e23014d6d98ddcd",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "ESMA publishes report on cross-border investment services supervision",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-report-cross-border-investment-services-supervision",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">ESMA publishes report on cross-border investment services supervision</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-20T10:30:10+02:00\" title=\"Monday, July 20, 2026 - 10:30\">20 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Supervisory convergence</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p class=\"text-align-justify\">The European Securities and Markets Authority (ESMA), the EU\u2019s financial markets regulator and supervisor, today published its <a href=\"https://www.esma.europa.eu/sites/default/files/2026-07/ESMA42-2004696504-8471_Follow-up_report_to_peer_review_on_cros",
+    "matched_keywords": [
+      "investment services",
+      "securities"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479286+00:00"
+  },
+  {
+    "event_id": "8ee8658356a4c277",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "Joint Board of Appeal dismisses appeal against the EBA",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/joint-board-appeal-dismisses-appeal-against-eba",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">Joint Board of Appeal dismisses appeal against the EBA</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-16T13:53:00+02:00\" title=\"Thursday, July 16, 2026 - 13:53\">16 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Board of Appeal</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p class=\"text-align-justify\"><span>The Joint Board of Appeal of the European Supervisory Authorities (EBA, EIOPA and ESMA \u2013 the ESAs) has issued a </span><a href=\"https://www.esma.europa.eu/sites/default/files/2026-07/BoA-D-2026-01_Decision_by_the_Board_of_Appeal_on_D_v_EBA.pdf\"><span>decision</span></",
+    "matched_keywords": [
+      "securities"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479350+00:00"
+  },
+  {
+    "event_id": "890c7a82231cdb9f",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "ESMA launches data collection under the first phase of ESAP",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/esma-launches-data-collection-under-first-phase-esap",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">ESMA launches data collection under the first phase of ESAP</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-10T15:26:04+02:00\" title=\"Friday, July 10, 2026 - 15:26\">10 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Market data</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p class=\"text-align-justify\">The European Securities and Markets Authority (ESMA), the EU regulator and supervisor, has launched the collection of information from Officially Appointed Mechanisms (OAMs) and National Competent Authorities (NCAs) - \u201ccollection bodies\u201d - for the first phase of implementati",
+    "matched_keywords": [
+      "securities"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479391+00:00"
+  },
+  {
+    "event_id": "ed430a2423fc80c3",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "New Q&As available",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/new-qas-available-July-2026",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">New Q&amp;As available</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-10T14:37:59+02:00\" title=\"Friday, July 10, 2026 - 14:37\">10 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Digital Finance and Innovation</div>\n              <div class=\"field__item\">Sustainable finance</div>\n              <div class=\"field__item\">Trading</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><div>\n<div>\n<p class=\"text-align-justify\">The European Securities and Markets Authority (ESMA), the EU's securities markets regulator, has published the following question and answer:</p>\n</div>\n</div>\n</d",
+    "matched_keywords": [
+      "custody",
+      "MiFID",
+      "MiFIR",
+      "securities",
+      "consolidated tape"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479436+00:00"
+  },
+  {
+    "event_id": "d1aba9276e23731c",
+    "source_id": "esma_news",
+    "source_name": "ESMA - News",
+    "category": "regulator",
+    "title": "ESMA publishes first market capitalisation data for EU Member States",
+    "link": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-first-market-capitalisation-data-eu-member-states",
+    "published": null,
+    "summary": "<span class=\"field field--name-title field--type-string field--label-hidden\">ESMA publishes first market capitalisation data for EU Member States</span>\n  \n<span class=\"field field--name-created field--type-created field--label-hidden\"><time class=\"datetime\" datetime=\"2026-07-10T10:30:27+02:00\" title=\"Friday, July 10, 2026 - 10:30\">10 July 2026</time>\n</span>\n\n      <div class=\"field field--name-field-news-section field--type-entity-reference field--label-hidden field__items\">\n              <div class=\"field__item\">Market data</div>\n          </div>\n  \n            <div class=\"clearfix text-formatted field field--name-field-news-introduction field--type-text-long field--label-hidden field__item\"><p class=\"text-align-justify\">The European Securities and Markets Authority (ESMA), the EU\u2019s financial markets regulator and supervisor, has published today the annual <a href=\"https://www.esma.europa.eu/sites/default/files/2026-07/ESMA12-2121844265-6026_FASTER_Market_capitalisation_figures_and_",
+    "matched_keywords": [
+      "securities"
+    ],
+    "fetched_at": "2026-08-07T14:12:55.479502+00:00"
+  }
+]
