@@ -9,7 +9,54 @@ of that outcome.
 Full scope, rationale, eval method, and timeline: see the project scope doc.
 This README tracks build status against that plan.
 
-## Status: Weeks 1 and 2 closed (2026-08-07)
+## Architecture
+
+```mermaid
+flowchart TD
+    subgraph Sources["v1 data sources (live-tested 2026-08-07)"]
+        F[Finextra RSS]
+        PB[Payment & Banking RSS]
+        BF[BaFin RSS]
+        ES[ESMA RSS]
+    end
+
+    subgraph Pipeline["LangGraph pipeline (src/agents/pipeline.py)"]
+        DA["Data agent\nfetch + normalize + keyword filter\n(no LLM)"]
+        AA["Analyst agent\nfind un-briefed events, flag trends\nonly if >=2 sources (no LLM)"]
+        BA["Briefing agent\nClaude Haiku 4.5, EN+DE SITREP\ncited claims, guardrail-gated"]
+    end
+
+    subgraph Graph["Neo4j Aura -- dedicated instance"]
+        EV[(Event)]
+        CO[(Company)]
+        RE[(Regulator)]
+        SO[(Source)]
+        BR[(Briefing)]
+    end
+
+    subgraph Surfaces["How it's consumed"]
+        MCP["MCP server\nget_daily_briefing\nquery_competitor\nget_regulatory_updates"]
+        WEB["FastAPI + web UI\nEN/DE toggle, refresh button"]
+    end
+
+    F & PB & BF & ES --> DA
+    DA -->|upsert| EV
+    DA -->|upsert| CO
+    DA -->|upsert| SO
+    AA -->|query: briefed_at IS NULL| EV
+    AA --> BA
+    BA -->|store| BR
+    BA -->|mark briefed_at| EV
+    Graph --> MCP
+    Graph --> WEB
+    BR -.covers.-> EV
+```
+
+Everything in this diagram is real and live-verified against the deployed
+Aura instance as of 2026-08-07 -- see `eval/results_2026-08-07.md` for the
+numbers behind the Analyst/Briefing boxes.
+
+## Status: Weeks 1-2 closed, Week 3 built (deploy + publishing pending your accounts) -- 2026-08-07
 
 Per the doc's own risk assessment, data acquisition is the riskiest part of
 this project. So Week 1 focused entirely on de-risking that before touching
@@ -143,10 +190,42 @@ python -m src.graph.loader ingest       # pull feeds and upsert into that graph
 python -m src.mcp_server.server         # run the MCP server (stdio)
 ```
 
+## Installing the MCP server in Claude Desktop
+
+Add to `claude_desktop_config.json` (same file that holds other MCP servers
+-- see `mcpServers` sibling entries). Uses `PYTHONPATH`, not `cwd`, per the
+gotcha documented on the other flagship projects in this portfolio:
+
+```json
+{
+  "mcpServers": {
+    "european-brokerage-market-intel": {
+      "command": "python",
+      "args": ["-m", "src.mcp_server.server"],
+      "env": {
+        "PYTHONPATH": "C:\\path\\to\\european-brokerage-market-intel-agent",
+        "NEO4J_URI": "neo4j+s://<your-instance>.databases.neo4j.io",
+        "NEO4J_USER": "<your-user>",
+        "NEO4J_PASSWORD": "<your-password>",
+        "NEO4J_DATABASE": "<your-database>"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop after saving, then ask it to look up a tracked
+company or get the daily briefing -- it will call this server's tools.
+
+## Publishing
+
+See `PUBLISHING.md` for the drafted directory listings and LinkedIn post
+-- ready to submit, not yet submitted (needs your accounts/logins).
+
 ## Week-by-week plan (from the scope doc)
 
 | Week | Focus | Status |
 |---|---|---|
 | 1 | v1 data sources -> Neo4j schema populated; pipeline skeleton with tracing on | Done. Sources verified, ingestion live, graph populated on Aura, repo published on GitHub -- all independently verified. |
 | 2 | Analyst + Briefing agents end-to-end; EN/DE toggle; MCP server wrapping the three tools | Done. First real SITREP generated end-to-end, $0.011953/run, all 3 MCP tools live-verified. |
-| 3 | Frozen-corpus eval; deploy; cost tracking; case study; publish MCP server | Not started |
+| 3 | Frozen-corpus eval; deploy; cost tracking; case study; publish MCP server | Built 2026-08-07. Eval run (4 real trials, see `eval/results_2026-08-07.md`), 2nd cost optimization measured (`eval/cost_optimizations.md`), deployable FastAPI app built and locally verified (`app/`), case study written (`CASE_STUDY.md`), publishing drafted (`PUBLISHING.md`). **Not done:** actually deploying to a host, and actually submitting to directories/LinkedIn -- both need your accounts. |

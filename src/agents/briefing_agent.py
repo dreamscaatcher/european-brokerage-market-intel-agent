@@ -36,6 +36,8 @@ from src.graph.loader import mark_events_briefed, store_briefing
 MODEL = "claude-haiku-4-5-20251001"
 INPUT_PRICE_PER_MTOK = 1.0
 OUTPUT_PRICE_PER_MTOK = 5.0
+CACHE_WRITE_PRICE_PER_MTOK = 1.25  # 5-min cache write = 1.25x base input
+CACHE_READ_PRICE_PER_MTOK = 0.10  # cache hit = 0.1x base input
 LANGUAGE_SPLIT_MARKER = "---GERMAN---"
 
 SYSTEM_PROMPT = f"""You are a market-intelligence briefing writer for a European \
@@ -58,6 +60,16 @@ Output the English version first, then a line containing exactly \
 same structure, same citation rules, translated section labels)."""
 
 
+MAX_OUTPUT_TOKENS = 8000  # was 2000, then 4000, now 8000 -- two real observed
+# truncations at each prior ceiling (found via the Week 3 eval harness: first
+# the German half cut off mid-URL at 2000, then a later run hit exactly 4000
+# tokens and stopped mid-briefing). Output length varies with sampling, not
+# just corpus size, so this is deliberately generous headroom rather than
+# tuned to the smallest ceiling that happened to pass a few times. max_tokens
+# is a cap, not a cost driver -- billing is on usage.output_tokens actually
+# generated, so raising this has no cost downside.
+
+
 def _build_user_prompt(events: list[dict[str, Any]], analysis_notes: str) -> str:
     lines = [f"Analyst notes: {analysis_notes}", "", "Events:"]
     if not events:
@@ -72,8 +84,18 @@ def _build_user_prompt(events: list[dict[str, Any]], analysis_notes: str) -> str
     return "\n".join(lines)
 
 
-def briefing_agent_node(state: BriefingState) -> BriefingState:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+def generate_sitrep(
+    events: list[dict[str, Any]],
+    analysis_notes: str,
+    api_key: str | None = None,
+) -> dict[str, Any]:
+    """
+    Pure LLM call -- no graph reads or writes. Split out from
+    briefing_agent_node so the Week 3 eval harness can score generation
+    against a frozen corpus without mutating live briefed_at/Briefing state,
+    and so this function is unit-testable on its own.
+    """
+    api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         raise RuntimeError(
             "ANTHROPIC_API_KEY is not set. Refusing to generate a placeholder "
@@ -81,14 +103,22 @@ def briefing_agent_node(state: BriefingState) -> BriefingState:
             "enforces on content applies to the pipeline itself: no key, no run."
         )
 
-    events = state.get("new_or_changed", [])
-    analysis_notes = state.get("analysis_notes", "")
-
     client = anthropic.Anthropic(api_key=api_key)
     response = client.messages.create(
         model=MODEL,
-        max_tokens=2000,
-        system=SYSTEM_PROMPT,
+        max_tokens=MAX_OUTPUT_TOKENS,
+        # Cost optimization #2: the system prompt is identical on every
+        # single call (it's a fixed set of rules, not per-run content), so
+        # it's a textbook prompt-caching candidate. Cache write costs 1.25x
+        # base input the first time; every call within the 5-minute window
+        # after that pays 0.1x instead of 1x for those same tokens.
+        system=[
+            {
+                "type": "text",
+                "text": SYSTEM_PROMPT,
+                "cache_control": {"type": "ephemeral"},
+            }
+        ],
         messages=[{"role": "user", "content": _build_user_prompt(events, analysis_notes)}],
     )
 
@@ -96,22 +126,43 @@ def briefing_agent_node(state: BriefingState) -> BriefingState:
     briefing_en, _, briefing_de = text.partition(LANGUAGE_SPLIT_MARKER)
 
     usage = response.usage
+    cache_write_tokens = getattr(usage, "cache_creation_input_tokens", 0) or 0
+    cache_read_tokens = getattr(usage, "cache_read_input_tokens", 0) or 0
     cost_usd = round(
         usage.input_tokens / 1_000_000 * INPUT_PRICE_PER_MTOK
+        + cache_write_tokens / 1_000_000 * CACHE_WRITE_PRICE_PER_MTOK
+        + cache_read_tokens / 1_000_000 * CACHE_READ_PRICE_PER_MTOK
         + usage.output_tokens / 1_000_000 * OUTPUT_PRICE_PER_MTOK,
         6,
     )
 
-    citations = [event["link"] for event in events if event.get("link")]
+    return {
+        "briefing_en": briefing_en.strip(),
+        "briefing_de": briefing_de.strip(),
+        "citations": [event["link"] for event in events if event.get("link")],
+        "cost_usd": cost_usd,
+        "input_tokens": usage.input_tokens,
+        "output_tokens": usage.output_tokens,
+        "cache_write_tokens": cache_write_tokens,
+        "cache_read_tokens": cache_read_tokens,
+        "stop_reason": response.stop_reason,
+    }
+
+
+def briefing_agent_node(state: BriefingState) -> BriefingState:
+    events = state.get("new_or_changed", [])
+    analysis_notes = state.get("analysis_notes", "")
+
+    result = generate_sitrep(events, analysis_notes)
     run_id = f"briefing-{datetime.now(timezone.utc).strftime('%Y-%m-%dT%H%M%SZ')}"
 
     if events:
         store_briefing(
             briefing_id=run_id,
             date=datetime.now(timezone.utc).isoformat(),
-            text_en=briefing_en.strip(),
-            text_de=briefing_de.strip(),
-            cost_usd=cost_usd,
+            text_en=result["briefing_en"],
+            text_de=result["briefing_de"],
+            cost_usd=result["cost_usd"],
             event_ids=[event["event_id"] for event in events],
         )
         mark_events_briefed(
@@ -121,11 +172,11 @@ def briefing_agent_node(state: BriefingState) -> BriefingState:
 
     return {
         **state,
-        "briefing_en": briefing_en.strip(),
-        "briefing_de": briefing_de.strip(),
-        "citations": citations,
+        "briefing_en": result["briefing_en"],
+        "briefing_de": result["briefing_de"],
+        "citations": result["citations"],
         "run_id": run_id,
-        "cost_usd": cost_usd,
+        "cost_usd": result["cost_usd"],
     }
 
 

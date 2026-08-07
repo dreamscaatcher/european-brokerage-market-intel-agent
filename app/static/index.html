@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>European Brokerage Market Intelligence Agent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.55; }
+  h1 { font-size: 1.4rem; }
+  .meta { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
+  .toggle-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  button { border: 1px solid #999; background: #f5f5f5; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 0.9rem; }
+  button.active { background: #333; color: white; border-color: #333; }
+  button:hover { opacity: 0.85; }
+  .briefing-box { border: 1px solid #ddd; border-radius: 10px; padding: 20px; white-space: pre-wrap; background: rgba(0,0,0,0.02); }
+  .lookup { margin-top: 32px; }
+  input { padding: 6px 10px; border: 1px solid #999; border-radius: 6px; width: 220px; }
+  .result-box { margin-top: 10px; white-space: pre-wrap; font-size: 0.9rem; }
+  .cost-note { font-size: 0.8rem; color: #888; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h1>European Brokerage Market Intelligence Agent</h1>
+  <div class="meta" id="meta">Loading...</div>
+
+  <div class="toggle-row">
+    <button id="btn-en" class="active">EN</button>
+    <button id="btn-de">DE</button>
+    <button id="btn-refresh">Refresh briefing</button>
+  </div>
+  <div class="cost-note">Refresh calls the live feeds + Claude Haiku and costs real money (~$0.01-0.02/run, see eval/results_2026-08-07.md).</div>
+
+  <div class="briefing-box" id="briefing">Loading briefing...</div>
+
+  <div class="lookup">
+    <h2>Query a tracked company</h2>
+    <input id="company-input" placeholder="e.g. Trade Republic">
+    <button id="btn-lookup">Look up</button>
+    <div class="result-box" id="company-result"></div>
+  </div>
+
+  <div class="lookup">
+    <h2>Recent regulatory updates</h2>
+    <button id="btn-regulatory">Last 7 days</button>
+    <div class="result-box" id="regulatory-result"></div>
+  </div>
+
+<script>
+let currentLang = "en";
+
+async function loadBriefing(lang) {
+  currentLang = lang;
+  document.getElementById("btn-en").classList.toggle("active", lang === "en");
+  document.getElementById("btn-de").classList.toggle("active", lang === "de");
+  const box = document.getElementById("briefing");
+  const meta = document.getElementById("meta");
+  box.textContent = "Loading...";
+  const res = await fetch(`/api/briefing?language=${lang}`);
+  const data = await res.json();
+  if (!data.exists) {
+    box.textContent = data.message;
+    meta.textContent = "";
+    return;
+  }
+  box.textContent = data.text;
+  meta.textContent = `${data.briefing_id} · ${data.date} · cost $${data.cost_usd}`;
+}
+
+document.getElementById("btn-en").onclick = () => loadBriefing("en");
+document.getElementById("btn-de").onclick = () => loadBriefing("de");
+
+document.getElementById("btn-refresh").onclick = async () => {
+  const box = document.getElementById("briefing");
+  box.textContent = "Running the full pipeline (fetch -> analyze -> brief)... this calls a live API and may take a few seconds.";
+  try {
+    const res = await fetch("/api/briefing/refresh", { method: "POST" });
+    if (!res.ok) {
+      const err = await res.json();
+      box.textContent = "Refresh failed: " + (err.detail || res.statusText);
+      return;
+    }
+    await loadBriefing(currentLang);
+  } catch (e) {
+    box.textContent = "Refresh failed: " + e;
+  }
+};
+
+document.getElementById("btn-lookup").onclick = async () => {
+  const name = document.getElementById("company-input").value.trim();
+  const out = document.getElementById("company-result");
+  if (!name) return;
+  out.textContent = "Looking up...";
+  const res = await fetch(`/api/competitor/${encodeURIComponent(name)}`);
+  const data = await res.json();
+  out.textContent = data.result;
+};
+
+document.getElementById("btn-regulatory").onclick = async () => {
+  const out = document.getElementById("regulatory-result");
+  out.textContent = "Loading...";
+  const res = await fetch("/api/regulatory?days=7");
+  const data = await res.json();
+  out.textContent = data.result;
+};
+
+loadBriefing("en");
+</script>
+</body>
+</html>
