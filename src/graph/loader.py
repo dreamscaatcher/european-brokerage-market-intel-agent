@@ -85,14 +85,12 @@ def _matched_companies(event: RawEvent, tracked_companies: list[str]) -> list[st
     return [c for c in tracked_companies if c.lower() in text]
 
 
-def ingest(config_path: str = "config/sources.yaml") -> None:
-    import yaml
-
-    with open(config_path, "r", encoding="utf-8") as f:
-        config = yaml.safe_load(f)
-    tracked_companies = config.get("tracked_companies", [])
-
-    events = pull_all_events(config_path)
+def upsert_events(events: list[RawEvent], tracked_companies: list[str]) -> int:
+    """
+    Shared by both the CLI (`ingest`) and the LangGraph Data agent node, so
+    the pipeline's "fetch" step and the standalone CLI command can never
+    silently drift into two different upsert behaviors.
+    """
     driver = get_driver()
     written = 0
     try:
@@ -114,7 +112,88 @@ def ingest(config_path: str = "config/sources.yaml") -> None:
                 written += 1
     finally:
         driver.close()
+    return written
+
+
+def ingest(config_path: str = "config/sources.yaml") -> None:
+    import yaml
+
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+    tracked_companies = config.get("tracked_companies", [])
+
+    events = pull_all_events(config_path)
+    written = upsert_events(events, tracked_companies)
     print(f"Upserted {written} events ({len(events)} fetched).")
+
+
+def mark_events_briefed(event_ids: list[str], briefed_at: str) -> None:
+    """Stamp events as covered so the Analyst agent doesn't re-surface them
+    forever. Only called after a Briefing agent run actually succeeds -- an
+    event that never made it into a real briefing should stay eligible."""
+    if not event_ids:
+        return
+    driver = get_driver()
+    try:
+        with driver.session(database=DATABASE) as session:
+            session.run(
+                "UNWIND $ids AS eid MATCH (e:Event {event_id: eid}) SET e.briefed_at = $ts",
+                ids=event_ids,
+                ts=briefed_at,
+            )
+    finally:
+        driver.close()
+
+
+def store_briefing(
+    briefing_id: str,
+    date: str,
+    text_en: str,
+    text_de: str,
+    cost_usd: float,
+    event_ids: list[str],
+) -> None:
+    """Persist a generated SITREP so get_daily_briefing (MCP tool) can serve
+    the latest one without re-running the whole pipeline on every call."""
+    driver = get_driver()
+    try:
+        with driver.session(database=DATABASE) as session:
+            session.run(
+                """
+                MERGE (b:Briefing {briefing_id: $bid})
+                SET b.date = $date, b.text_en = $en, b.text_de = $de, b.cost_usd = $cost
+                WITH b
+                UNWIND $event_ids AS eid
+                MATCH (e:Event {event_id: eid})
+                MERGE (b)-[:COVERS]->(e)
+                """,
+                bid=briefing_id,
+                date=date,
+                en=text_en,
+                de=text_de,
+                cost=cost_usd,
+                event_ids=event_ids,
+            )
+    finally:
+        driver.close()
+
+
+def get_latest_briefing(language: str = "en") -> dict | None:
+    driver = get_driver()
+    field = "text_en" if language == "en" else "text_de"
+    try:
+        with driver.session(database=DATABASE) as session:
+            record = session.run(
+                f"""
+                MATCH (b:Briefing)
+                RETURN b.briefing_id AS briefing_id, b.date AS date,
+                       b.{field} AS text, b.cost_usd AS cost_usd
+                ORDER BY b.date DESC LIMIT 1
+                """
+            ).single()
+    finally:
+        driver.close()
+    return dict(record) if record else None
 
 
 if __name__ == "__main__":
