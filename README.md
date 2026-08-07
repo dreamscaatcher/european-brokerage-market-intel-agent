@@ -9,7 +9,7 @@ of that outcome.
 Full scope, rationale, eval method, and timeline: see the project scope doc.
 This README tracks build status against that plan.
 
-## Status: Week 1 closed, Week 2 built and mostly live-verified (2026-08-07)
+## Status: Weeks 1 and 2 closed (2026-08-07)
 
 Per the doc's own risk assessment, data acquisition is the riskiest part of
 this project. So Week 1 focused entirely on de-risking that before touching
@@ -96,12 +96,18 @@ Week 1 closed out same day: repo pushed to
   a new `Briefing` node (`briefing_id`, `date`, `text_en`, `text_de`,
   `cost_usd`) linked via `COVERS`, applied live to the same Aura instance.
 
-**Blocked on you for full Week 2 close-out:**
+**Closed out same day:** `ANTHROPIC_API_KEY` added, full pipeline run
+end-to-end. First real SITREP: `briefing-2026-08-07T153941Z`, **$0.011953**
+for all 18 events (EN + DE, both correctly structured Situation/Assessment/
+Recommendation, every claim cited, everything correctly described as
+single-sourced since no cross-source trends existed in this batch).
+Independently re-verified 3 ways: direct Cypher query on Aura (18 events,
+18 briefed, 1 Briefing node, 18 `COVERS` edges), `get_daily_briefing` MCP
+tool called directly (returns the real text), and re-running the Analyst
+agent (now correctly reports 0 un-briefed events instead of 18).
 
-- `ANTHROPIC_API_KEY` -- needed to actually generate a briefing and close
-  the loop (`get_daily_briefing` has something real to return, `briefed_at`
-  gets set, cost-per-run becomes a real measured number instead of a
-  formula). Add it to `.env`.
+**Still open:**
+
 - `LANGCHAIN_API_KEY` (optional but the doc's observability non-negotiable
   wants it) -- tracing is coded and wired but currently disabled
   (`LANGCHAIN_TRACING_V2=false`) because a blank key just produces 401s on
@@ -142,5 +148,5 @@ python -m src.mcp_server.server         # run the MCP server (stdio)
 | Week | Focus | Status |
 |---|---|---|
 | 1 | v1 data sources -> Neo4j schema populated; pipeline skeleton with tracing on | Done. Sources verified, ingestion live, graph populated on Aura, repo published on GitHub -- all independently verified. |
-| 2 | Analyst + Briefing agents end-to-end; EN/DE toggle; MCP server wrapping the three tools | Built same day. Analyst agent + 2 of 3 MCP tools fully live-verified (no LLM needed). Briefing agent + `get_daily_briefing` implemented but blocked on `ANTHROPIC_API_KEY` to actually run. |
+| 2 | Analyst + Briefing agents end-to-end; EN/DE toggle; MCP server wrapping the three tools | Done. First real SITREP generated end-to-end, $0.011953/run, all 3 MCP tools live-verified. |
 | 3 | Frozen-corpus eval; deploy; cost tracking; case study; publish MCP server | Not started |
